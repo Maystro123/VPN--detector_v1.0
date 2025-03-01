@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>  
+<head>  
+    <meta charset="utf-8" />  
+    <title>Détecteur de VPN</title>  
+    <style>  
+        body {  
+            background: #2C3E50;  
+            color: #ECF0F1;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .contenaire {  
+            background: rgba(255, 255, 255, 0.1);  
+            border: 2px solid #ECF0F1;  
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 50px;
+        }  
+        h2 {
+            color: #27AE60;
+        }
+        #us {
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            text-align: left;
+            white-space: pre-line;
+        }
+        .valeur {
+            color: #F39C12;
+            font-weight: bold;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #BDC3C7;
+        }
+        details {
+            margin-top: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: #F1C40F;
+        }
+    </style>  
+</head>  
+<body>  
+    <div class="contenaire">
+        <h2>Détecteur de VPN</h2>
+        <p id="us">Chargement...</p>  
+        <p>Notre site est sécurisé et n'enregistre aucune de vos données personnelles. Il sert uniquement à vérifier si votre VPN fonctionne correctement.</p>
+    </div>  
+
+    <script>  
+        fetch("https://ipwhois.app/json/")
+            .then(response => response.json())
+            .then(data => {  
+                document.getElementById('us').innerHTML = 
+                    `<pre>
+IP🪃: <span class="valeur">${data.ip}</span>
+Type: <span class="valeur">${data.type}</span>
+Org: <span class="valeur">${data.org}</span>
+Devise: <span class="valeur">${data.currency_code}</span>
+Capitale: <span class="valeur">${data.country_capital}</span>
+Ville: <span class="valeur">${data.city}</span>
+                    </pre>`;
+            })
+            .catch(error => {
+                document.getElementById('us').innerText = "Erreur de récupération des données";
+            });
+    </script>  
+
+    <details>
+        <summary>Comment ça fonctionne ?</summary>
+        <p>Vous pouvez vérifier vos informations réelles avant de vous connecter à un VPN.  
+        Après avoir activé votre VPN, revenez sur le site pour voir si les informations ont changé.  
+        Si elles ont changé, alors votre VPN masque bien vos données personnelles.</p>
+    </details>
+    
+    <footer>
+        &copy; 2025 maystro.com - Tous droits réservés.
+    </footer>
+</body>  
+</html>
